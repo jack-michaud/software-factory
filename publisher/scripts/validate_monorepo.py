@@ -7,7 +7,13 @@ except Exception:
     yaml = None
 ROOT = Path(__file__).resolve().parents[2]
 ROLES = ['pm','builder','orchestrator','reviewer','publisher']
-REPO_NAMES = {'pm':'hermes-softwarefactorypm-profile','builder':'hermes-softwarefactorybuilder-profile','orchestrator':'hermes-softwarefactoryorchestrator-profile','reviewer':'hermes-softwarefactoryreviewer-profile','publisher':'hermes-softwarefactorypublisher-profile'}
+REPO_NAMES = {
+    'pm': 'software-factory-pm-profile',
+    'builder': 'software-factory-builder-profile',
+    'orchestrator': 'software-factory-orchestrator-profile',
+    'reviewer': 'software-factory-reviewer-profile',
+    'publisher': 'software-factory-publisher-profile',
+}
 def load_yaml(path):
     text = Path(path).read_text()
     if yaml:

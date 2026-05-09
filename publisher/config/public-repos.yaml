@@ -1,26 +1,26 @@
 roles:
   pm:
-    repo: hermes-softwarefactorypm-profile
+    repo: software-factory-pm-profile
     source_dir: profiles/pm
     branch: main
     visibility: public-generated-artifact
   builder:
-    repo: hermes-softwarefactorybuilder-profile
+    repo: software-factory-builder-profile
     source_dir: profiles/builder
     branch: main
     visibility: public-generated-artifact
   orchestrator:
-    repo: hermes-softwarefactoryorchestrator-profile
+    repo: software-factory-orchestrator-profile
     source_dir: profiles/orchestrator
     branch: main
     visibility: public-generated-artifact
   reviewer:
-    repo: hermes-softwarefactoryreviewer-profile
+    repo: software-factory-reviewer-profile
     source_dir: profiles/reviewer
     branch: main
     visibility: public-generated-artifact
   publisher:
-    repo: hermes-softwarefactorypublisher-profile
+    repo: software-factory-publisher-profile
     source_dir: profiles/publisher
     branch: main
     visibility: public-generated-artifact
