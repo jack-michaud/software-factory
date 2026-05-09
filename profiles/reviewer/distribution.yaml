@@ -1,0 +1,20 @@
+name: softwarefactoryreviewer-profile
+version: 0.1.0
+description: "Independently verifies generated artifacts, public/private boundaries, and acceptance criteria using read-only checks by default."
+author: Software Factory
+license: MPL-2.0
+source:
+  type: monorepo-generated
+  monorepo: software-factory-profiles
+  role: reviewer
+  generated_repo: hermes-softwarefactoryreviewer-profile
+distribution_owned:
+  - README.md
+  - SOUL.md
+  - LICENSE
+  - CHANGELOG.md
+  - skills/devops/software-factory/
+  - skills/devops/kanban-worker/
+  - skills/devops/kanban-profile-workflow/
+  - skills/autonomous-ai-agents/hermes-agent/
+  - skills/devops/software-factory-reviewer/

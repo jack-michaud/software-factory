@@ -1,0 +1,22 @@
+generated/
+*.pyc
+__pycache__/
+.env
+auth.json
+state.db
+sessions/
+memories/
+logs/
+local/
+kanban.db
+
+# local validation artifacts
+.pytest_cache/
+validation-report.json
+secret-scan-report.json
+dry-run-publish-approval-artifact.json
+generated-diff-summary.json
+source-to-generated-manifest.json
+commands-and-evidence.md
+implementation-diff.patch
+install-update-evidence.txt

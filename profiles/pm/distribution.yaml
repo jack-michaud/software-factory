@@ -1,0 +1,20 @@
+name: softwarefactorypm-profile
+version: 0.1.0
+description: "Frames Software Factory work, acceptance criteria, risks, and handoffs without mutating sprites or runtime systems."
+author: Software Factory
+license: MPL-2.0
+source:
+  type: monorepo-generated
+  monorepo: software-factory-profiles
+  role: pm
+  generated_repo: hermes-softwarefactorypm-profile
+distribution_owned:
+  - README.md
+  - SOUL.md
+  - LICENSE
+  - CHANGELOG.md
+  - skills/devops/software-factory/
+  - skills/devops/kanban-worker/
+  - skills/devops/kanban-profile-workflow/
+  - skills/autonomous-ai-agents/hermes-agent/
+  - skills/devops/software-factory-pm/

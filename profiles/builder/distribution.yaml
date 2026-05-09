@@ -1,0 +1,20 @@
+name: softwarefactorybuilder-profile
+version: 0.1.0
+description: "Performs approved local implementation and, in separate explicitly scoped tasks, owns sprite mutations with checkpoint discipline."
+author: Software Factory
+license: MPL-2.0
+source:
+  type: monorepo-generated
+  monorepo: software-factory-profiles
+  role: builder
+  generated_repo: hermes-softwarefactorybuilder-profile
+distribution_owned:
+  - README.md
+  - SOUL.md
+  - LICENSE
+  - CHANGELOG.md
+  - skills/devops/software-factory/
+  - skills/devops/kanban-worker/
+  - skills/devops/kanban-profile-workflow/
+  - skills/autonomous-ai-agents/hermes-agent/
+  - skills/devops/software-factory-builder/

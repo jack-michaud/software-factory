@@ -1,0 +1,9 @@
+allowed_root_files:
+  - distribution.yaml
+  - SOUL.md
+  - README.md
+  - LICENSE
+  - CHANGELOG.md
+  - GENERATED_METADATA.json
+allowed_dirs:
+  - skills/

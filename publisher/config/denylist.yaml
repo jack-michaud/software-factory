@@ -1,0 +1,21 @@
+forbidden_paths:
+  - .env
+  - auth.json
+  - state.db
+  - kanban.db
+  - sessions/
+  - memories/
+  - logs/
+  - local/
+  - .ssh/
+  - Obsidian Vault/
+  - .hermes/kanban/
+forbidden_patterns:
+  - '(?i)api[_-]?key\s*[:=]\s*[^<\s][^\s]+'
+  - '(?i)oauth[_-]?token\s*[:=]\s*[^<\s][^\s]+'
+  - '(?i)github[_-]?token\s*[:=]\s*[^<\s][^\s]+'
+  - '-----BEGIN (OPENSSH|RSA|DSA|EC|PRIVATE) KEY-----'
+allowlisted_placeholders:
+  - '<org>'
+  - '<repo>'
+  - '<placeholder-api-key>'

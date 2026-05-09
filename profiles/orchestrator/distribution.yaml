@@ -1,0 +1,20 @@
+name: softwarefactoryorchestrator-profile
+version: 0.1.0
+description: "Coordinates durable Kanban task flow and dependencies without performing infrastructure mutation."
+author: Software Factory
+license: MPL-2.0
+source:
+  type: monorepo-generated
+  monorepo: software-factory-profiles
+  role: orchestrator
+  generated_repo: hermes-softwarefactoryorchestrator-profile
+distribution_owned:
+  - README.md
+  - SOUL.md
+  - LICENSE
+  - CHANGELOG.md
+  - skills/devops/software-factory/
+  - skills/devops/kanban-worker/
+  - skills/devops/kanban-profile-workflow/
+  - skills/autonomous-ai-agents/hermes-agent/
+  - skills/devops/software-factory-orchestrator/
