@@ -86,7 +86,7 @@ def main():
         entries=[]
         copy_tree(src,dst,entries)
         readme=dst/'README.md'
-        readme.write_text(readme.read_text()+f"\n## Generated public repository shape\n\nThis root is current-Hermes-compatible: `distribution.yaml` is at repository root.\n\nInstall after publication:\n\n```bash\nhermes profile install https://github.com/<org>/{repo}.git --name softwarefactory{role}\n```\n\nUpdate after publication:\n\n```bash\nhermes profile update softwarefactory{role} --yes\n```\n\nPublic/private boundary: credentials, runtime state, logs, memories, sessions, Kanban DB/workspaces, sprite credentials, SSH keys, OAuth tokens, API keys, and private Obsidian notes are not included.\n", encoding='utf-8')
+        readme.write_text(readme.read_text()+f"\n## Generated public repository shape\n\nThis root is current-Hermes-compatible: `distribution.yaml` is at repository root.\n\nInstall after publication:\n\n```bash\nhermes profile install https://github.com/<org>/{repo}.git --name softwarefactory{role}\n```\n\nUpdate after publication:\n\n```bash\nhermes profile update softwarefactory{role} --yes\n```\n\nPublic/private boundary: credentials, runtime state, logs, memories, sessions, Kanban DB/workspaces, sprite credentials, SSH keys, OAuth tokens, API keys, and private Obsidian notes are not included. Profile `.env` files are user-owned and are not overwritten by distribution updates; declare expected variables in `distribution.yaml` `env_requires` and document non-secret examples in README/install guidance.\n", encoding='utf-8')
         readme_entry = manifest_entry(
             src/'README.md',
             readme,
