@@ -1,7 +1,7 @@
 ---
 name: kanban-profile-workflow
 description: Public multi-profile Kanban workflow conventions.
-version: 0.1.1
+version: 0.1.2
 ---
 # Kanban Profile Workflow
 
@@ -26,3 +26,9 @@ When a profile is waiting on concrete Kanban work, do not leave the waiting task
 Use `blocked` only for external/manual blockers where no concrete Kanban task exists yet, such as missing credentials, unknown authority, unavailable repo/distribution, or human approval that has not yet been captured as a task. If an external/manual blocker can be represented as an unblocker Kanban task, create or link that task instead of stranding downstream work.
 
 This preserves Software Factory role boundaries: PM/orchestrator routes durable work, builders edit source, reviewers gate, publishers publish authorized public artifacts, installer/profile-mutation tasks perform installs or runtime profile updates, and docs tasks produce release notes/documentation.
+
+## Source-update Evidence Gates
+
+For source-update tasks, PM should provide a Source Map naming the canonical public source coordinates: superproject, role/profile source repos, shared source locations, and any related profile repos needed for coverage. Builders must clone or fetch those canonical repos into the Kanban task workspace, create task/work-named topic branches before edits, and edit only source-controlled files. Installed runtime directories such as `~/.hermes/profiles/*` are not canonical source or final-state evidence.
+
+Reviewer and publisher gates should require a handoff that names repo URLs, workspace-local paths, branch names, commit hashes, changed files, diff or diff-stat output, validation output, target-profile coverage matrix, and whether superproject submodule pointers or shared files changed. If a canonical Source Map entry, access path, or authority is missing, block with the missing public coordinate and unblock condition instead of accepting local-only profile-store changes.
