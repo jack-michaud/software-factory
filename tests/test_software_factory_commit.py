@@ -17,6 +17,25 @@ def test_profile_display_name_from_active_profile():
     )
 
 
+def test_profile_display_name_from_meta_active_profile():
+    assert (
+        sfc.profile_display_name(env={"HERMES_PROFILE": "metasoftwarefactoryreviewer"})
+        == "Meta Software Factory Reviewer"
+    )
+
+
+def test_profile_display_name_explicit_override_takes_precedence():
+    assert (
+        sfc.profile_display_name(
+            env={
+                "HERMES_PROFILE": "metasoftwarefactoryreviewer",
+                "SOFTWARE_FACTORY_PROFILE_DISPLAY_NAME": "Custom Reviewer Name",
+            }
+        )
+        == "Custom Reviewer Name"
+    )
+
+
 def test_commit_message_appends_active_profile_coauthor_trailer():
     message = sfc.with_profile_coauthor("chore: publish generated profile", "Software Factory Builder")
     assert message.endswith("\n")
@@ -48,12 +67,12 @@ def test_dry_run_reports_author_and_profile_coauthor(tmp_path, monkeypatch):
     repo = tmp_path / "repo"
     repo.mkdir()
     (repo / ".git").mkdir()
-    monkeypatch.setenv("HERMES_PROFILE", "softwarefactorypublisher")
+    monkeypatch.setenv("HERMES_PROFILE", "metasoftwarefactoryreviewer")
     result = sfc.commit_changes(repo, "chore: publish", ["README.md"], dry_run=True)
     assert result["author"] == "Jack Michaud <jack@lomz.me>"
-    assert result["coauthor"] == "Co-authored-by: Software Factory Publisher <jack@lomz.me>"
+    assert result["coauthor"] == "Co-authored-by: Meta Software Factory Reviewer <jack@lomz.me>"
     assert "--author=Jack Michaud <jack@lomz.me>" in result["command"]
-    assert "Co-authored-by: Software Factory Publisher <jack@lomz.me>" in result["message"]
+    assert "Co-authored-by: Meta Software Factory Reviewer <jack@lomz.me>" in result["message"]
 
 
 def test_real_git_commit_uses_jack_author_and_profile_coauthor(tmp_path, monkeypatch):

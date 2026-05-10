@@ -37,6 +37,9 @@ The helper resolves the active profile display name from `SOFTWARE_FACTORY_PROFI
 - `softwarefactorybuilder` -> `Co-authored-by: Software Factory Builder <jack@lomz.me>`
 - `softwarefactoryreviewer` -> `Co-authored-by: Software Factory Reviewer <jack@lomz.me>`
 - `softwarefactorypublisher` -> `Co-authored-by: Software Factory Publisher <jack@lomz.me>`
+- `metasoftwarefactoryreviewer` -> `Co-authored-by: Meta Software Factory Reviewer <jack@lomz.me>`
+
+`SOFTWARE_FACTORY_PROFILE_DISPLAY_NAME` is the highest-priority explicit override when a wrapper needs a display name that differs from the canonical `softwarefactory*` or `metasoftwarefactory*` profile mappings.
 
 The helper scopes the author/committer via per-command environment and `git -c` arguments; it never writes global git config or repo-local config, so non-Software-Factory commit behavior is unchanged.
 

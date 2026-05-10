@@ -21,21 +21,35 @@ SOFTWARE_FACTORY_AUTHOR = (
     f"{SOFTWARE_FACTORY_AUTHOR_NAME} <{SOFTWARE_FACTORY_AUTHOR_EMAIL}>"
 )
 
+PROFILE_PREFIX_DISPLAY_NAMES = {
+    "metasoftwarefactory": "Meta Software Factory",
+    "softwarefactory": "Software Factory",
+}
+
+PROFILE_ROLE_DISPLAY_NAMES = {
+    "pm": "PM",
+    "builder": "Builder",
+    "orchestrator": "Orchestrator",
+    "reviewer": "Reviewer",
+    "publisher": "Publisher",
+    "docs": "Docs",
+}
+
 PROFILE_DISPLAY_NAMES = {
-    "softwarefactorypm": "Software Factory PM",
-    "softwarefactorybuilder": "Software Factory Builder",
-    "softwarefactoryorchestrator": "Software Factory Orchestrator",
-    "softwarefactoryreviewer": "Software Factory Reviewer",
-    "softwarefactorypublisher": "Software Factory Publisher",
-    "softwarefactorydocs": "Software Factory Docs",
+    f"{prefix}{role}": f"{prefix_display} {role_display}"
+    for prefix, prefix_display in PROFILE_PREFIX_DISPLAY_NAMES.items()
+    for role, role_display in PROFILE_ROLE_DISPLAY_NAMES.items()
 }
 
 
 def _title_from_profile(profile_name: str) -> str:
-    suffix = profile_name.removeprefix("softwarefactory")
-    if not suffix:
-        return "Software Factory"
-    return "Software Factory " + suffix.replace("-", " ").replace("_", " ").title()
+    for prefix, prefix_display in PROFILE_PREFIX_DISPLAY_NAMES.items():
+        suffix = profile_name.removeprefix(prefix)
+        if suffix != profile_name:
+            if not suffix:
+                return prefix_display
+            return f"{prefix_display} {suffix.title()}"
+    return "Software Factory " + profile_name.title()
 
 
 def profile_display_name(
