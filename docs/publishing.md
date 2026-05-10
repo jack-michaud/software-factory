@@ -29,9 +29,16 @@ All Software Factory automation-created git commits must be created with `publis
 
 - author: `Jack Michaud <jack@lomz.me>`
 - committer for the automated invocation: `Jack Michaud <jack@lomz.me>`
-- commit-message trailer: `Co-authored-by: <active profile display name> <jack@lomz.me>`
+- exactly one commit-message trailer: `Co-authored-by: <active profile display name> <jack@lomz.me>`
 
-The helper resolves the active profile display name from `SOFTWARE_FACTORY_PROFILE_DISPLAY_NAME` or `HERMES_PROFILE`, for example `softwarefactorybuilder` becomes `Software Factory Builder`. It scopes the author/committer via per-command environment and `git -c` arguments; it never writes global git config or repo-local config, so non-Software-Factory commit behavior is unchanged.
+The helper resolves the active profile display name from `SOFTWARE_FACTORY_PROFILE_DISPLAY_NAME` or `HERMES_PROFILE`. Canonical examples include:
+
+- `softwarefactorypm` -> `Co-authored-by: Software Factory PM <jack@lomz.me>`
+- `softwarefactorybuilder` -> `Co-authored-by: Software Factory Builder <jack@lomz.me>`
+- `softwarefactoryreviewer` -> `Co-authored-by: Software Factory Reviewer <jack@lomz.me>`
+- `softwarefactorypublisher` -> `Co-authored-by: Software Factory Publisher <jack@lomz.me>`
+
+The helper scopes the author/committer via per-command environment and `git -c` arguments; it never writes global git config or repo-local config, so non-Software-Factory commit behavior is unchanged.
 
 Dry-run verification example:
 
@@ -42,5 +49,12 @@ HERMES_PROFILE=softwarefactorybuilder \
   --message "chore: verify software factory authorship" \
   --dry-run
 ```
+
+Maintainers can verify the implementation and distribution guidance in:
+
+- `publisher/scripts/software_factory_commit.py`
+- `tests/test_software_factory_commit.py`
+- `docs/publishing.md`
+- `profiles/publisher` publisher-profile guidance
 
 Public prototype documentation. Runtime credentials, local state, private Obsidian notes, Kanban databases, and sprite credentials are intentionally excluded.
