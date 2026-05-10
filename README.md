@@ -36,3 +36,11 @@ git submodule update --remote --merge --recursive
 | `profiles/docs` | https://github.com/jack-michaud/software-factory-docs-profile.git | `main` |
 
 Public/private boundary: credentials, runtime state, logs, memories, sessions, Kanban databases/workspaces, sprite credentials, SSH keys, OAuth tokens, API keys, and private Obsidian notes are not included.
+
+## Documentation
+
+- [Install](docs/install.md)
+- [Publishing](docs/publishing.md)
+- [PM blocked work and escalation](docs/pm-blocked-work.md)
+- [Public vs private boundary](docs/public-vs-private.md)
+- [Security](docs/security.md)
