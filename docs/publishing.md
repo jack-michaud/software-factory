@@ -21,4 +21,6 @@ To update submodule pins after role repos move forward, run:
 git submodule update --remote --merge --recursive
 ```
 
+Publisher follow-through: after approved public profile repo changes are pushed, the publisher should update these monorepo submodule pointers to the pushed public repo HEADs, validate the monorepo state, and publish the pointer update unless the task explicitly scopes it out or credentials/authority block it.
+
 Public prototype documentation. Runtime credentials, local state, private Obsidian notes, Kanban databases, and sprite credentials are intentionally excluded.
