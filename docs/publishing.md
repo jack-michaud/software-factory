@@ -21,6 +21,29 @@ To update submodule pins after role repos move forward, run:
 git submodule update --remote --merge --recursive
 ```
 
+## Reproducible local validation
+
+The publisher scripts run on bare Python 3 and do not require PyYAML for the simple source-controlled YAML shapes in `publisher/config/*.yaml` and profile `distribution.yaml` files. They prefer PyYAML when available, then fall back to `publisher/scripts/simple_yaml.py`.
+
+For unit tests, create an isolated development environment from the source-controlled requirements file:
+
+```bash
+python3 -m venv .venv
+. .venv/bin/activate
+python -m pip install -r requirements-dev.txt
+```
+
+Canonical generation and validation commands:
+
+```bash
+python3 publisher/scripts/generate_public_repos.py
+python3 publisher/scripts/validate_monorepo.py
+python3 publisher/scripts/compare_generated_output.py
+python3 publisher/scripts/scan_generated_output.py
+python3 -m py_compile publisher/scripts/*.py
+python3 -m pytest tests/test_source_to_generated_manifest.py
+```
+
 Publisher follow-through: after approved public profile repo changes are pushed, the publisher should update these monorepo submodule pointers to the pushed public repo HEADs, validate the monorepo state, and publish the pointer update unless the task explicitly scopes it out or credentials/authority block it.
 
 ## Software Factory automation commit authorship

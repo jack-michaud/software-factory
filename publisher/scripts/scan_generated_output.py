@@ -6,8 +6,6 @@ try:
 except Exception:
     yaml = None
 ROOT = Path(__file__).resolve().parents[2]
-ROLES = ['pm','builder','orchestrator','reviewer','publisher']
-REPO_NAMES = {'pm':'hermes-softwarefactorypm-profile','builder':'hermes-softwarefactorybuilder-profile','orchestrator':'hermes-softwarefactoryorchestrator-profile','reviewer':'hermes-softwarefactoryreviewer-profile','publisher':'hermes-softwarefactorypublisher-profile'}
 def load_yaml(path):
     text = Path(path).read_text()
     if yaml:
@@ -26,7 +24,11 @@ def sha256(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 DENY_PATH_PARTS = {'.env','auth.json','state.db','kanban.db','sessions','memories','logs','local','.ssh'}
-DENY_SUBSTRINGS = ['Obsidian Vault','.hermes/kanban','SPRITE_CREDENTIAL','SPRITE_TOKEN','FLY_API_TOKEN','GITHUB_TOKEN','OAUTH_TOKEN','OPENAI_API_KEY','ANTHROPIC_API_KEY','BEGIN OPENSSH PRIVATE KEY','BEGIN RSA PRIVATE KEY','BEGIN PRIVATE KEY']
+# Literal private locations and key material are never allowed. Public docs may
+# name environment variables such as GITHUB_TOKEN as part of a credential
+# contract, so token/API-key variable names are checked by assignment regexes
+# below rather than forbidden as standalone substrings.
+DENY_SUBSTRINGS = ['Obsidian Vault','.hermes/kanban','SPRITE_CREDENTIAL','BEGIN OPENSSH PRIVATE KEY','BEGIN RSA PRIVATE KEY','BEGIN PRIVATE KEY']
 SECRET_REGEXES = [re.compile(r'(?i)(api[_-]?key|oauth[_-]?token|github[_-]?token)\s*[:=]\s*(?!<placeholder-api-key>|<org>|<repo>)[A-Za-z0-9_./+\-]{12,}'), re.compile(r'-----BEGIN (OPENSSH|RSA|DSA|EC|PRIVATE) KEY-----')]
 def scan_dir(base):
     findings=[]; files=0

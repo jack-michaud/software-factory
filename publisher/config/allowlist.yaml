@@ -5,5 +5,11 @@ allowed_root_files:
   - LICENSE
   - CHANGELOG.md
   - GENERATED_METADATA.json
+  - config.yaml
+  - role-capability-manifest.yaml
+  - RELEASE_NOTES.md
+  - EXCLUSIONS.md
 allowed_dirs:
   - skills/
+  - templates/
+  - scripts/

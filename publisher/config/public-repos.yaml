@@ -4,23 +4,34 @@ roles:
     source_dir: profiles/pm
     branch: main
     visibility: public-generated-artifact
+    validation_profile: runtime-role
   builder:
     repo: software-factory-builder-profile
     source_dir: profiles/builder
     branch: main
     visibility: public-generated-artifact
+    validation_profile: runtime-role
   orchestrator:
     repo: software-factory-orchestrator-profile
     source_dir: profiles/orchestrator
     branch: main
     visibility: public-generated-artifact
+    validation_profile: runtime-role
   reviewer:
     repo: software-factory-reviewer-profile
     source_dir: profiles/reviewer
     branch: main
     visibility: public-generated-artifact
+    validation_profile: runtime-role
   publisher:
     repo: software-factory-publisher-profile
     source_dir: profiles/publisher
     branch: main
     visibility: public-generated-artifact
+    validation_profile: runtime-role
+  docs:
+    repo: software-factory-docs-profile
+    source_dir: profiles/docs
+    branch: main
+    visibility: public-generated-artifact
+    validation_profile: docs-role
