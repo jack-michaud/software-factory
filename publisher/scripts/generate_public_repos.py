@@ -6,13 +6,14 @@ try:
 except Exception:
     yaml = None
 ROOT = Path(__file__).resolve().parents[2]
-ROLES = ['pm','builder','orchestrator','reviewer','publisher']
+ROLES = ['pm','builder','orchestrator','reviewer','publisher','docs']
 REPO_NAMES = {
     'pm': 'software-factory-pm-profile',
     'builder': 'software-factory-builder-profile',
     'orchestrator': 'software-factory-orchestrator-profile',
     'reviewer': 'software-factory-reviewer-profile',
     'publisher': 'software-factory-publisher-profile',
+    'docs': 'software-factory-docs-profile',
 }
 def load_yaml(path):
     text = Path(path).read_text()

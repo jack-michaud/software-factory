@@ -20,7 +20,7 @@ def test_manifest_hashes_generated_files_after_readme_transformations():
         entry for entry in entries
         if entry["generated"].endswith("/README.md") and entry.get("source", "").endswith("/README.md")
     ]
-    assert len(readme_entries) == 5
+    assert len(readme_entries) == 6
 
     for entry in entries:
         generated = root / entry["generated"]

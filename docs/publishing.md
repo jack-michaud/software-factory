@@ -23,4 +23,24 @@ git submodule update --remote --merge --recursive
 
 Publisher follow-through: after approved public profile repo changes are pushed, the publisher should update these monorepo submodule pointers to the pushed public repo HEADs, validate the monorepo state, and publish the pointer update unless the task explicitly scopes it out or credentials/authority block it.
 
+## Software Factory automation commit authorship
+
+All Software Factory automation-created git commits must be created with `publisher/scripts/software_factory_commit.py` or an equivalent wrapper that uses the same policy:
+
+- author: `Jack Michaud <jack@lomz.me>`
+- committer for the automated invocation: `Jack Michaud <jack@lomz.me>`
+- commit-message trailer: `Co-authored-by: <active profile display name> <jack@lomz.me>`
+
+The helper resolves the active profile display name from `SOFTWARE_FACTORY_PROFILE_DISPLAY_NAME` or `HERMES_PROFILE`, for example `softwarefactorybuilder` becomes `Software Factory Builder`. It scopes the author/committer via per-command environment and `git -c` arguments; it never writes global git config or repo-local config, so non-Software-Factory commit behavior is unchanged.
+
+Dry-run verification example:
+
+```bash
+HERMES_PROFILE=softwarefactorybuilder \
+  python3 publisher/scripts/software_factory_commit.py \
+  --repo . \
+  --message "chore: verify software factory authorship" \
+  --dry-run
+```
+
 Public prototype documentation. Runtime credentials, local state, private Obsidian notes, Kanban databases, and sprite credentials are intentionally excluded.
