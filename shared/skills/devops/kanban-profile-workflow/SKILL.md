@@ -1,7 +1,7 @@
 ---
 name: kanban-profile-workflow
 description: Public multi-profile Kanban workflow conventions.
-version: 0.1.2
+version: 0.1.3
 ---
 # Kanban Profile Workflow
 
@@ -25,10 +25,14 @@ When a profile is waiting on concrete Kanban work, do not leave the waiting task
 
 Use `blocked` only for external/manual blockers where no concrete Kanban task exists yet, such as missing credentials, unknown authority, unavailable repo/distribution, or human approval that has not yet been captured as a task. If an external/manual blocker can be represented as an unblocker Kanban task, create or link that task instead of stranding downstream work.
 
-This preserves Software Factory role boundaries: PM/orchestrator routes durable work, builders edit source, reviewers gate, publishers publish authorized public artifacts, installer/profile-mutation tasks perform installs or runtime profile updates, and docs tasks produce release notes/documentation.
+This preserves Software Factory role boundaries: PM/orchestrator routes durable work, builders edit source, reviewers gate, publishers publish authorized public artifacts, installer/profile-mutation tasks perform installs and runtime profile updates, and docs tasks produce release notes/documentation updates.
 
 ## Source-update Evidence Gates
 
-For source-update tasks, PM should provide a Source Map naming the canonical public source coordinates: superproject, role/profile source repos, shared source locations, and any related profile repos needed for coverage. Builders must clone or fetch those canonical repos into the Kanban task workspace, create task/work-named topic branches before edits, and edit only source-controlled files. Installed runtime directories such as `~/.hermes/profiles/*` are not canonical source or final-state evidence.
+For source-update tasks, PM should provide a Source Map naming the canonical public source coordinates: superproject, role/profile source repos, shared source locations, related profile repos needed for coverage, and any prepared local clone/worktree paths. The reusable local convention is `/home/sprite/projects/<repo-name>` for canonical clones and `/home/sprite/worktrees/<repo-name>/<task-id>-<short-slug>` for task-specific worktrees.
 
-Reviewer and publisher gates should require a handoff that names repo URLs, workspace-local paths, branch names, commit hashes, changed files, diff or diff-stat output, validation output, target-profile coverage matrix, and whether superproject submodule pointers or shared files changed. If a canonical Source Map entry, access path, or authority is missing, block with the missing public coordinate and unblock condition instead of accepting local-only profile-store changes.
+Builders must use the Source Map-provided standard repo/worktree path when present. The Kanban workspace remains scratch/evidence storage; source edits happen in the named repo/worktree on a task/work-named branch. If no standard path is supplied, preserve fallback behavior by cloning or fetching canonical public repositories into the Kanban task workspace, then creating a task/work-named branch before editing. Installed runtime directories such as `~/.hermes/profiles/*`, private local profile state, logs, memories, raw Kanban databases/workspaces, and secrets are not canonical source or final-state evidence.
+
+Reviewer and publisher gates should require a handoff that names repo URLs, local repo/worktree paths, branch names, commit hashes, changed files, diff or diff-stat output, validation output, target-profile coverage matrix, publish/push status, and whether superproject submodule pointers or generated profile repos changed. If commits are not pushed, require either an approved source-controlled patch/diff bundle or a PM-named reviewer-accessible standard worktree path.
+
+Reviewers should inspect the named standard worktree/path or public remote coordinates from the handoff. Do not use private installed profile state, secrets, logs, memories, raw Kanban databases/workspaces, or runtime profile directories as source truth. If a canonical Source Map entry, access path, branch/worktree authority, or write permission is missing or conflicting, block with the missing public coordinate and unblock condition instead of accepting local-only profile-store changes.
