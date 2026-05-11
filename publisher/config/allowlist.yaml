@@ -6,6 +6,7 @@ allowed_root_files:
   - CHANGELOG.md
   - GENERATED_METADATA.json
   - config.yaml
+  - config.static-validation-spark.yaml
   - role-capability-manifest.yaml
   - RELEASE_NOTES.md
   - EXCLUSIONS.md
