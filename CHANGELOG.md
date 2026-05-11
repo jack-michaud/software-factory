@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added PM forced-skill task-writing guidance: PM-created Kanban tasks now default to no task-level forced skills, forbid role/project/built-in forced skills by default, and require target-profile loadability evidence plus fallback/remediation behavior for any startup skill exception.
 - Documented the Software Factory automation commit authorship convention: Jack Michaud author/committer, exactly one active-profile co-author trailer, canonical profile examples, and maintainer verification pointers.
 - Added approval-gate dependency doctrine to PM/orchestrator role guidance and shared Kanban workflow guidance so approval/decision gates for blocked seeds are not created as children of the blocked tasks they must unblock.
 - Documented PM blocked-work escalation behavior: durable Kanban tasks with stable idempotency keys replace draft-only blocked artifacts; blocked/triaged tasks now require explicit blockers, missing evidence, unblock conditions, downstream acceptance criteria, and rollback/evidence requirements where applicable.
