@@ -11,5 +11,6 @@ allowed_root_files:
   - EXCLUSIONS.md
 allowed_dirs:
   - skills/
+  - references/
   - templates/
   - scripts/
