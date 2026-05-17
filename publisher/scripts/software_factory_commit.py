@@ -27,12 +27,7 @@ PROFILE_PREFIX_DISPLAY_NAMES = {
 }
 
 PROFILE_ROLE_DISPLAY_NAMES = {
-    "pm": "PM",
-    "builder": "Builder",
-    "orchestrator": "Orchestrator",
-    "reviewer": "Reviewer",
-    "publisher": "Publisher",
-    "docs": "Docs",
+    "worker": "Worker",
 }
 
 PROFILE_DISPLAY_NAMES = {

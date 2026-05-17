@@ -10,15 +10,10 @@ PUBLIC_ALLOWLIST_CONFIG = ROOT/'publisher/config/allowlist.yaml'
 PROTECTED_PREFIXES = ['sessions/','memories/','logs/','local/','.ssh/','.hermes/kanban/']
 DENY_PATH_PARTS = {'.env','auth.json','state.db','kanban.db','sessions','memories','logs','local','.ssh'}
 DENY_SUFFIXES = ('.pem','.key','.p12','.pfx')
-RUNTIME_ROLES = {'pm','builder','orchestrator','reviewer','publisher'}
-COMMON_RUNTIME_REQUIRED = {'skills/devops/software-factory/','skills/devops/kanban-worker/','skills/devops/kanban-profile-workflow/','skills/autonomous-ai-agents/hermes-agent/'}
+RUNTIME_ROLES = {'worker'}
+COMMON_RUNTIME_REQUIRED = {'skills/devops/software-factory-kanban-workflow/','skills/devops/kanban-worker/','skills/devops/remote-sprite-development/','skills/autonomous-ai-agents/hermes-agent/'}
 ROLE_SOUL_CHECKS = {
-    'pm': [('must not run sprite', 'SOUL lacks no-sprite-mutation language')],
-    'orchestrator': [('must not run sprite', 'SOUL lacks no-sprite-mutation language')],
-    'reviewer': [('must not run sprite', 'SOUL lacks no-sprite-mutation language')],
-    'builder': [('checkpoint before and after', 'SOUL lacks checkpoint/mutation ownership language')],
-    'publisher': [('explicit human approval', 'SOUL lacks approval language'), ('must not mutate sprites', 'SOUL lacks no-sprite language')],
-    'docs': [('access raw Kanban', 'SOUL lacks docs role public/private boundary language')],
+    'worker': [('software-factory-kanban-workflow', 'SOUL lacks Kanban workflow skill requirement'), ('third failed attempt', 'SOUL lacks bounded retry/escalation language')],
 }
 
 
@@ -190,8 +185,6 @@ def main():
         if role in RUNTIME_ROLES:
             missing_common=sorted(COMMON_RUNTIME_REQUIRED-set([p for p in owned]))
             if missing_common: fail(f'{role}: missing common owned skills {missing_common}', errors)
-        elif role == 'docs' and 'skills/public-docs-maintenance/' not in owned:
-            fail('docs: missing docs-owned public-docs-maintenance skill', errors)
         soul=(rdir/'SOUL.md').read_text() if (rdir/'SOUL.md').exists() else ''
         for token, message in ROLE_SOUL_CHECKS.get(role, []):
             if token not in soul:

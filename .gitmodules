@@ -1,24 +1,4 @@
-[submodule "profiles/pm"]
-	path = profiles/pm
-	url = https://github.com/jack-michaud/software-factory-pm-profile.git
-	branch = main
-[submodule "profiles/builder"]
-	path = profiles/builder
-	url = https://github.com/jack-michaud/software-factory-builder-profile.git
-	branch = main
-[submodule "profiles/orchestrator"]
-	path = profiles/orchestrator
-	url = https://github.com/jack-michaud/software-factory-orchestrator-profile.git
-	branch = main
-[submodule "profiles/reviewer"]
-	path = profiles/reviewer
-	url = https://github.com/jack-michaud/software-factory-reviewer-profile.git
-	branch = main
-[submodule "profiles/publisher"]
-	path = profiles/publisher
-	url = https://github.com/jack-michaud/software-factory-publisher-profile.git
-	branch = main
-[submodule "profiles/docs"]
-	path = profiles/docs
-	url = https://github.com/jack-michaud/software-factory-docs-profile.git
+[submodule "profiles/worker"]
+	path = profiles/worker
+	url = https://github.com/jack-michaud/software-factory-worker-profile.git
 	branch = main

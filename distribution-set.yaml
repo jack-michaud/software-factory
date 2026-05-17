@@ -1,11 +1,6 @@
 name: software-factory-profiles
 version: 0.1.0
-description: Local source-of-truth monorepo for generated Software Factory role profile distributions.
+description: Local source-of-truth monorepo for generated Software Factory worker profile distribution.
 roles:
-  - pm
-  - builder
-  - orchestrator
-  - reviewer
-  - publisher
-  - docs
+  - worker
 public_repo_generation: dry-run-only

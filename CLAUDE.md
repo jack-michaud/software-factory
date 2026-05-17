@@ -4,16 +4,11 @@ This file provides guidance to Claude Code when working in this repository.
 
 ## Repository overview
 
-This is the public Software Factory profiles monorepo. It contains shared docs, publishing/generation scripts, tests, and metadata for six role profile distributions:
+This is the public Software Factory worker profile monorepo. It contains shared docs, publishing/generation scripts, tests, and metadata for one profile distribution:
 
-- `pm`
-- `builder`
-- `orchestrator`
-- `reviewer`
-- `publisher`
-- `docs`
+- `worker`
 
-The role profile directories under `profiles/` are git submodules pointing at separate public profile repositories. Treat those directories as independent repositories with their own git state.
+The profile directory under `profiles/worker` is a git submodule pointing at the separate public worker profile repository. Treat it as an independent repository with its own git state.
 
 ## Important boundaries
 
@@ -25,7 +20,7 @@ Repository deny/ignore patterns include:
 - `sessions/`, `memories/`, `logs/`, `local/`, `.ssh/`
 - key/certificate material such as `*.pem`, `*.key`, `*.p12`, `*.pfx`
 
-Only publish files that are allowlisted by `publisher/config/allowlist.yaml` and owned by each profile's `distribution.yaml`.
+Only publish files that are allowlisted by `publisher/config/allowlist.yaml` and owned by `profiles/worker/distribution.yaml`.
 
 ## Submodules
 
@@ -35,21 +30,21 @@ Use recursive clone/update when profile contents are needed:
 git submodule update --init --recursive
 ```
 
-Refresh submodule pins from their `main` branches with:
+Refresh the worker submodule pin from its `main` branch with:
 
 ```bash
 git submodule update --remote --merge --recursive
 ```
 
-When modifying a profile under `profiles/<role>`, remember it is a submodule. Commit/push profile changes in that submodule repository first, then update and commit the parent repo's submodule pointer if appropriate.
+When modifying files under `profiles/worker`, remember it is a submodule. Commit/push worker profile changes in that submodule repository first, then update and commit the parent repo's submodule pointer if appropriate.
 
 ## Key files and directories
 
 - `README.md` - monorepo overview and submodule map
 - `docs/` - public documentation, especially install/publishing/security guidance
-- `distribution-set.yaml` - top-level distribution metadata and role inventory
-- `profiles/<role>/distribution.yaml` - Hermes distribution manifest for each role
-- `profiles/<role>/SOUL.md` - role behavior/persona contract
+- `distribution-set.yaml` - top-level distribution metadata and profile inventory
+- `profiles/worker/distribution.yaml` - Hermes distribution manifest
+- `profiles/worker/SOUL.md` - worker behavior/persona contract
 - `shared/` - shared skills and snippets used by profile distributions
 - `publisher/config/public-repos.yaml` - generated public repo inventory
 - `publisher/config/allowlist.yaml` - public file allowlist
@@ -104,7 +99,7 @@ Software Factory automation-created commits must use `publisher/scripts/software
 Dry-run example:
 
 ```bash
-HERMES_PROFILE=softwarefactorybuilder \
+HERMES_PROFILE=worker \
   python3 publisher/scripts/software_factory_commit.py \
   --repo . \
   --message "chore: verify software factory authorship" \
@@ -115,7 +110,7 @@ See `docs/publishing.md` and `tests/test_software_factory_commit.py` for details
 
 ## Development notes
 
-- Keep public docs and role README/install guidance free of secrets and private paths.
-- If adding files to a role distribution, update that role's `distribution.yaml` and ensure paths pass `publisher/config/allowlist.yaml`.
-- If adding/changing roles or generated repos, update `distribution-set.yaml`, `publisher/config/public-repos.yaml`, docs, and tests together.
+- Keep public docs and worker README/install guidance free of secrets and private paths.
+- If adding files to the worker distribution, update `profiles/worker/distribution.yaml` and ensure paths pass `publisher/config/allowlist.yaml`.
+- If adding/changing generated repos, update `distribution-set.yaml`, `publisher/config/public-repos.yaml`, docs, and tests together.
 - Validate source-to-generated provenance after generator changes; README files are intentionally transformed during generation and their manifest entries must record that transformation.

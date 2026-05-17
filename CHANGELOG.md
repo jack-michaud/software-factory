@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Collapsed the Software Factory distribution inventory to the single `worker` profile.
+- Added `software-factory-kanban-workflow` with durable Kanban context, project reminder propagation, bounded remediation retries, escalation, and shortcut tech-debt capture.
+- Preserved remote Sprite development guidance in the worker profile.
+- Updated generation, validation, install, publishing, and tests for the `software-factory-worker-profile` public repository.
 - Remediated remote-sprite copyable PM seed examples so task-level startup skills stay unset by default and `remote-sprite-development` is used only after exact target-profile loadability verification, otherwise the contract is inlined.
 - Added PM forced-skill task-writing guidance: PM-created Kanban tasks now default to no task-level forced skills, forbid role/project/built-in forced skills by default, and require target-profile loadability evidence plus fallback/remediation behavior for any startup skill exception.
 - Documented the Software Factory automation commit authorship convention: Jack Michaud author/committer, exactly one active-profile co-author trailer, canonical profile examples, and maintainer verification pointers.

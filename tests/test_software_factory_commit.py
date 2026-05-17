@@ -12,15 +12,15 @@ spec.loader.exec_module(sfc)
 
 def test_profile_display_name_from_active_profile():
     assert (
-        sfc.profile_display_name(env={"HERMES_PROFILE": "softwarefactorybuilder"})
-        == "Software Factory Builder"
+        sfc.profile_display_name(env={"HERMES_PROFILE": "worker"})
+        == "Software Factory Worker"
     )
 
 
-def test_profile_display_name_from_meta_active_profile():
+def test_profile_display_name_from_legacy_prefixed_worker_profile():
     assert (
-        sfc.profile_display_name(env={"HERMES_PROFILE": "metasoftwarefactoryreviewer"})
-        == "Meta Software Factory Reviewer"
+        sfc.profile_display_name(env={"HERMES_PROFILE": "softwarefactoryworker"})
+        == "Software Factory Worker"
     )
 
 
@@ -28,27 +28,27 @@ def test_profile_display_name_explicit_override_takes_precedence():
     assert (
         sfc.profile_display_name(
             env={
-                "HERMES_PROFILE": "metasoftwarefactoryreviewer",
-                "SOFTWARE_FACTORY_PROFILE_DISPLAY_NAME": "Custom Reviewer Name",
+                "HERMES_PROFILE": "worker",
+                "SOFTWARE_FACTORY_PROFILE_DISPLAY_NAME": "Custom Worker Name",
             }
         )
-        == "Custom Reviewer Name"
+        == "Custom Worker Name"
     )
 
 
 def test_commit_message_appends_active_profile_coauthor_trailer():
-    message = sfc.with_profile_coauthor("chore: publish generated profile", "Software Factory Builder")
+    message = sfc.with_profile_coauthor("chore: publish generated profile", "Software Factory Worker")
     assert message.endswith("\n")
-    assert "Co-authored-by: Software Factory Builder <jack@lomz.me>" in message
+    assert "Co-authored-by: Software Factory Worker <jack@lomz.me>" in message
     assert message.count("Co-authored-by:") == 1
 
 
 def test_commit_message_does_not_duplicate_trailer():
     original = (
         "chore: publish generated profile\n\n"
-        "Co-authored-by: Software Factory Builder <jack@lomz.me>\n"
+        "Co-authored-by: Software Factory Worker <jack@lomz.me>\n"
     )
-    assert sfc.with_profile_coauthor(original, "Software Factory Builder") == original
+    assert sfc.with_profile_coauthor(original, "Software Factory Worker") == original
 
 
 def test_git_author_env_is_scoped_to_invocation(monkeypatch):
@@ -67,12 +67,12 @@ def test_dry_run_reports_author_and_profile_coauthor(tmp_path, monkeypatch):
     repo = tmp_path / "repo"
     repo.mkdir()
     (repo / ".git").mkdir()
-    monkeypatch.setenv("HERMES_PROFILE", "metasoftwarefactoryreviewer")
+    monkeypatch.setenv("HERMES_PROFILE", "worker")
     result = sfc.commit_changes(repo, "chore: publish", ["README.md"], dry_run=True)
     assert result["author"] == "Jack Michaud <jack@lomz.me>"
-    assert result["coauthor"] == "Co-authored-by: Meta Software Factory Reviewer <jack@lomz.me>"
+    assert result["coauthor"] == "Co-authored-by: Software Factory Worker <jack@lomz.me>"
     assert "--author=Jack Michaud <jack@lomz.me>" in result["command"]
-    assert "Co-authored-by: Meta Software Factory Reviewer <jack@lomz.me>" in result["message"]
+    assert "Co-authored-by: Software Factory Worker <jack@lomz.me>" in result["message"]
 
 
 def test_real_git_commit_uses_jack_author_and_profile_coauthor(tmp_path, monkeypatch):
@@ -81,7 +81,7 @@ def test_real_git_commit_uses_jack_author_and_profile_coauthor(tmp_path, monkeyp
     subprocess.run(["git", "init"], cwd=repo, check=True, stdout=subprocess.DEVNULL)
     (repo / "README.md").write_text("hello\n", encoding="utf-8")
     subprocess.run(["git", "add", "README.md"], cwd=repo, check=True)
-    monkeypatch.setenv("HERMES_PROFILE", "softwarefactorybuilder")
+    monkeypatch.setenv("HERMES_PROFILE", "worker")
 
     result = sfc.commit_changes(repo, "chore: test software factory commit", [])
 
@@ -93,4 +93,4 @@ def test_real_git_commit_uses_jack_author_and_profile_coauthor(tmp_path, monkeyp
         ["git", "log", "-1", "--pretty=%B"], cwd=repo, text=True
     )
     assert author == "Jack Michaud <jack@lomz.me>"
-    assert "Co-authored-by: Software Factory Builder <jack@lomz.me>" in body
+    assert "Co-authored-by: Software Factory Worker <jack@lomz.me>" in body
